@@ -6,11 +6,12 @@ public class HPManager : MonoBehaviour
     int hp;
     [SerializeField]
     int maxHp;
-    public delegate void OnActorDeath();
-    public event OnActorDeath onDeath;
+    public delegate void OnAction();
+    public event OnAction onDeath;
+    public event OnAction onRevive;
     // Start is called before the first frame update
 
-    private void Start()
+    private void Awake()
     {
         hp = maxHp;
     }
@@ -24,6 +25,11 @@ public class HPManager : MonoBehaviour
                 onDeath.Invoke();
             }
         }
+    }
+    public void Revive()
+    {
+        hp = maxHp;
+        onRevive.Invoke();
     }
     public bool IsDead() { return hp <= 0; }
     public int GetHp() { return hp; }

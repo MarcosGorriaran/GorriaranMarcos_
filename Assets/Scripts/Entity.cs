@@ -2,16 +2,30 @@
 using System;
 using UnityEngine;
 [RequireComponent(typeof(HPManager))]
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour, IAttack
 {
-    public HPManager lifeManager;
+    protected HPManager lifeManager;
+    void OnEnable()
+    {
+        lifeManager.Revive();
+    }
 
-
-    protected void Start()
+    protected virtual void Awake()
     {
         lifeManager = GetComponent<HPManager>();
         lifeManager.onDeath += OnDeath;
+        lifeManager.onRevive += OnRevive;
     }
-    protected abstract void Attack(Vector2 direction);
-    protected abstract void OnDeath();
+    public virtual void Attack(Vector2 direction)
+    {
+        
+    }
+    protected virtual void OnDeath()
+    {
+        gameObject.SetActive(false);
+    }
+    protected virtual void OnRevive()
+    {
+
+    }
 }
