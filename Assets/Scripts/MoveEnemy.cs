@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent (typeof(NavMeshAgent))]
 public abstract class MoveEnemy : Enemy, IMove
 {
@@ -11,12 +11,19 @@ public abstract class MoveEnemy : Enemy, IMove
     protected override void Awake()
     {
         base.Awake();
-        enemyStates.Add
+        
+        enemyStates.Add(EnemyState.Chase,ChaseState);
         agent = GetComponent<NavMeshAgent>();
+        agent.updateUpAxis = false;
+        agent.updateRotation = false;
+    }
+    protected virtual void Update()
+    {
+        enemyStates[state]();
     }
     public void Move(Vector2 target)
     {
-        agent.Move(target);
+        agent.SetDestination(target);
     }
     protected override void AttackState()
     {
@@ -24,14 +31,18 @@ public abstract class MoveEnemy : Enemy, IMove
     }
     protected override void IdleState()
     {
-        throw new System.NotImplementedException();
+        
     }
     protected void ChaseState()
     {
-        throw new System.NotImplementedException();
+        Move(targetInfo.target.transform.position);
     }
     protected override void OnTargetFound()
     {
         state = EnemyState.Chase;
+    }
+    protected override void OnTargetLost()
+    {
+        state = EnemyState.Idle;
     }
 }

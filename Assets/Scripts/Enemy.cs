@@ -23,9 +23,12 @@ public abstract class Enemy : Entity
         enemyStates = new Dictionary<EnemyState, StateAction>();
         enemyStates.Add(EnemyState.Idle,IdleState);
         enemyStates.Add(EnemyState.Attack,AttackState);
+        targetInfo.onTargetedFound += OnTargetFound;
+        targetInfo.onTargetLost += OnTargetLost;
         base.Awake();
     }
     protected abstract void OnTargetFound();
+    protected abstract void OnTargetLost();
     protected abstract void IdleState();
     protected abstract void AttackState();
 }
