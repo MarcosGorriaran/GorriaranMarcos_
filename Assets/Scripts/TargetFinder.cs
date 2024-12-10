@@ -44,6 +44,7 @@ public class TargetFinder : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+        Gizmos.DrawLine(transform.position, target.transform.position);
     }
     private void LookForTarget()
     {
