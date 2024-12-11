@@ -6,28 +6,15 @@ using UnityEngine;
 public class Proyectile : MonoBehaviour
 {
     Vector2 dir = new Vector2(0,0);
+    GameObject owner;
     [SerializeField]
     float speed;
     [SerializeField]
     float lifeTime;
     [SerializeField]
     uint damage;
-    [SerializeField]
-    bool explodeOnEnd;
-    [SerializeField]
-    float explosionRadius;
-    [SerializeField]
-    float explosionForce;
-    [SerializeField]
-    uint explosionDamage;
     Rigidbody2D body;
-    private void OnDisable()
-    {
-        if (explodeOnEnd)
-        {
-            Physics2D.OverlapCircleAll(transform.position,explosionRadius);
-        }
-    }
+    
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -35,6 +22,10 @@ public class Proyectile : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         dir = direction;
+    }
+    public void SetOwner(GameObject owner)
+    {
+        this.owner = owner;
     }
     private IEnumerator DeathCount()
     {
@@ -47,10 +38,18 @@ public class Proyectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Entity hitTarget))
+        if (collision.gameObject != owner)
         {
-            hitTarget.GetComponent<HPManager>().Hurt(damage);
+            if (collision.TryGetComponent(out Entity hitTarget))
+            {
+                hitTarget.GetComponent<HPManager>().Hurt(damage);
+            }
+            gameObject.SetActive(false);
         }
-        gameObject.SetActive(false);
+        
+    }
+    protected GameObject GetOwner()
+    {
+        return owner;
     }
 }

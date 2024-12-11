@@ -28,6 +28,7 @@ public class TargetFinder : MonoBehaviour
             {
                 Vector3 direction = (element.transform.position - transform.position).normalized;
                 RaycastHit2D rayHit = Physics2D.Raycast(transform.position, direction);
+                
                 result = rayHit.collider.gameObject == target;
             }
             return result;

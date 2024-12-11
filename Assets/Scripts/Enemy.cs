@@ -17,6 +17,8 @@ public abstract class Enemy : Entity
     protected Dictionary<EnemyState, StateAction> enemyStates;
     [NonSerialized]
     public TargetFinder targetInfo;
+    [SerializeField]
+    protected Weapon weapon;
     protected override void Awake()
     {
         targetInfo = GetComponent<TargetFinder>();

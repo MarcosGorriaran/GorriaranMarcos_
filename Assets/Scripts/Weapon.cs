@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class WeaponSO : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     private List<Proyectile> pool = new List<Proyectile>();
     public Proyectile ammo;
@@ -16,7 +16,7 @@ public class WeaponSO : MonoBehaviour
         yield return new WaitForSeconds(roundPerSeconds);
         cooldown = null;
     }
-    public bool Fire(Vector2 source, Vector2 target)
+    public bool Fire(Vector2 source, Vector2 target, GameObject owner)
     {
         if(cooldown != null)
         {
@@ -42,10 +42,11 @@ public class WeaponSO : MonoBehaviour
     {
         return Random.Range(spread *-1, spread);
     }
-    private void SpawnBullet(Proyectile firedBullet, Vector2 source, Vector2 target)
+    private void SpawnBullet(Proyectile firedBullet, Vector2 source, Vector2 target, GameObject owner)
     {
         firedBullet.gameObject.SetActive(true);
         firedBullet.transform.position = source;
         firedBullet.SetDirection(new Vector2(target.x + GetRandomSpread(), target.y + GetRandomSpread()).normalized);
+        firedBullet.SetOwner();
     }
 }

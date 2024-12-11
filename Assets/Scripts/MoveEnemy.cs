@@ -7,11 +7,11 @@ using UnityEngine.AI;
 public abstract class MoveEnemy : Enemy, IMove
 {
     NavMeshAgent agent;
+    
 
     protected override void Awake()
     {
         base.Awake();
-        
         enemyStates.Add(EnemyState.Chase,ChaseState);
         agent = GetComponent<NavMeshAgent>();
         agent.updateUpAxis = false;
@@ -25,10 +25,6 @@ public abstract class MoveEnemy : Enemy, IMove
     {
         agent.SetDestination(target);
     }
-    protected override void AttackState()
-    {
-        throw new System.NotImplementedException();
-    }
     protected override void IdleState()
     {
         
@@ -37,8 +33,10 @@ public abstract class MoveEnemy : Enemy, IMove
     {
         Move(targetInfo.target.transform.position);
     }
+    
     protected override void OnTargetFound()
     {
+        
         state = EnemyState.Chase;
     }
     protected override void OnTargetLost()
