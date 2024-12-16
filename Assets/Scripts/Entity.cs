@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour, IAttack
 {
     protected HPManager lifeManager;
+    [SerializeField]
+    protected Weapon weapon;
     void OnEnable()
     {
         lifeManager.Revive();

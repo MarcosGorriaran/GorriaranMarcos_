@@ -17,8 +17,7 @@ public abstract class Enemy : Entity
     protected Dictionary<EnemyState, StateAction> enemyStates;
     [NonSerialized]
     public TargetFinder targetInfo;
-    [SerializeField]
-    protected Weapon weapon;
+    
     protected override void Awake()
     {
         targetInfo = GetComponent<TargetFinder>();
@@ -28,6 +27,10 @@ public abstract class Enemy : Entity
         targetInfo.onTargetedFound += OnTargetFound;
         targetInfo.onTargetLost += OnTargetLost;
         base.Awake();
+    }
+    protected virtual void Update()
+    {
+        enemyStates[state]();
     }
     protected abstract void OnTargetFound();
     protected abstract void OnTargetLost();

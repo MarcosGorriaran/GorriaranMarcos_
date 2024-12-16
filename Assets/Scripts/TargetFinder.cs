@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ public class TargetFinder : MonoBehaviour
     public float detectionRange;
     [SerializeField]
     public bool seeTroughObstacles;
+    private bool targetFound;
     public delegate void TargetFoundAction();
     public event TargetFoundAction onTargetedFound;
     public delegate void TargetLostAction();
@@ -33,19 +35,34 @@ public class TargetFinder : MonoBehaviour
             }
             return result;
         }).ToArray();
-        if (elementsFound.Count() > 0)
+        try
         {
-            onTargetedFound.Invoke();
+
+            if (elementsFound.Count() > 0 && !targetFound)
+            {
+                onTargetedFound.Invoke();
+                targetFound = true;
+            }
+            else if(elementsFound.Count() <= 0 && targetFound)
+            {
+                onTargetLost.Invoke();
+                targetFound = false;
+            }
         }
-        else
+        catch (NullReferenceException)
         {
-            onTargetLost.Invoke();
+
         }
+        
     }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, detectionRange);
-        Gizmos.DrawLine(transform.position, target.transform.position);
+        if (target != null)
+        {
+            Gizmos.DrawLine(transform.position, target.transform.position);
+        }
+        
     }
     private void LookForTarget()
     {

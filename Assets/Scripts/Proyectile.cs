@@ -14,10 +14,14 @@ public class Proyectile : MonoBehaviour
     [SerializeField]
     uint damage;
     Rigidbody2D body;
-    
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(DeathCount());
     }
     public void SetDirection(Vector2 direction)
     {

@@ -11,19 +11,16 @@ public class MeleeEnemy : MoveEnemy
     {
         base.Awake();
         meleeRange.onTargetedFound += InsideMeleeRange;
-        meleeRange.onTargetLost += OnTargetLost;
-    }
-    public override void Attack(Vector2 direction)
-    {
-
+        meleeRange.onTargetLost += OnTargetFound;
+        meleeRange.target = targetInfo.target;
     }
     void InsideMeleeRange()
     {
         state = EnemyState.Attack;
+        StopAgent();
     }
-
     protected override void AttackState()
     {
-        weapon.Fire(transform.position);
+        weapon.Fire(transform.position,targetInfo.target.transform.position, gameObject);
     }
 }

@@ -17,10 +17,6 @@ public abstract class MoveEnemy : Enemy, IMove
         agent.updateUpAxis = false;
         agent.updateRotation = false;
     }
-    protected virtual void Update()
-    {
-        enemyStates[state]();
-    }
     public void Move(Vector2 target)
     {
         agent.SetDestination(target);
@@ -36,11 +32,19 @@ public abstract class MoveEnemy : Enemy, IMove
     
     protected override void OnTargetFound()
     {
-        
         state = EnemyState.Chase;
+        ContinueAgent();
     }
     protected override void OnTargetLost()
     {
         state = EnemyState.Idle;
+    }
+    protected void StopAgent()
+    {
+        agent.isStopped = true;
+    }
+    protected void ContinueAgent()
+    {
+        agent.isStopped = false;
     }
 }
