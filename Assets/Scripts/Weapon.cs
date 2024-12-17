@@ -48,8 +48,8 @@ public class Weapon : MonoBehaviour
         firedBullet.gameObject.SetActive(true);
         Vector2 direction = (target - source).normalized;
         firedBullet.transform.position = source+(direction*muzzleOffset);
-        firedBullet.transform.rotation = Quaternion.LookRotation(direction);
-        firedBullet.transform.eulerAngles = new Vector3(0, 0, firedBullet.transform.eulerAngles.x);
+        float angle = Mathf.Atan2(direction.y, direction.x);
+        firedBullet.transform.rotation = Quaternion.Euler(0,0,angle*180f/Mathf.PI-90f);
         firedBullet.SetDirection(new Vector2(target.x + GetRandomSpread(), target.y + GetRandomSpread()).normalized);
         firedBullet.SetOwner(owner);
     }

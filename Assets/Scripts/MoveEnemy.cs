@@ -27,13 +27,13 @@ public abstract class MoveEnemy : Enemy, IMove
     }
     protected void ChaseState()
     {
-        Move(targetInfo.target.transform.position);
+        Move(target.transform.position);
     }
     
-    protected override void OnTargetFound()
+    protected override void OnTargetFound(Collider2D foundTarget)
     {
+        base.OnTargetFound(foundTarget);
         state = EnemyState.Chase;
-        ContinueAgent();
     }
     protected override void OnTargetLost()
     {
@@ -41,7 +41,9 @@ public abstract class MoveEnemy : Enemy, IMove
     }
     protected void StopAgent()
     {
+        agent.ResetPath();
         agent.isStopped = true;
+        
     }
     protected void ContinueAgent()
     {

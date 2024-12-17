@@ -9,18 +9,17 @@ public enum EnemyState
     Chase,
     Attack
 }
-[RequireComponent(typeof(TargetFinder))]
 public abstract class Enemy : Entity
 {
+    protected Entity target;
     public EnemyState state;
     protected delegate void StateAction();
     protected Dictionary<EnemyState, StateAction> enemyStates;
-    [NonSerialized]
+    [SerializeField]
     public TargetFinder targetInfo;
     
     protected override void Awake()
     {
-        targetInfo = GetComponent<TargetFinder>();
         enemyStates = new Dictionary<EnemyState, StateAction>();
         enemyStates.Add(EnemyState.Idle,IdleState);
         enemyStates.Add(EnemyState.Attack,AttackState);
@@ -32,7 +31,10 @@ public abstract class Enemy : Entity
     {
         enemyStates[state]();
     }
-    protected abstract void OnTargetFound();
+    protected virtual void OnTargetFound(Collider2D foundTarget)
+    {
+        target = foundTarget.GetComponent<Entity>();
+    }
     protected abstract void OnTargetLost();
     protected abstract void IdleState();
     protected abstract void AttackState();

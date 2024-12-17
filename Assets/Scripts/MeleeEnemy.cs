@@ -11,16 +11,21 @@ public class MeleeEnemy : MoveEnemy
     {
         base.Awake();
         meleeRange.onTargetedFound += InsideMeleeRange;
-        meleeRange.onTargetLost += OnTargetFound;
-        meleeRange.target = targetInfo.target;
+        meleeRange.onTargetLost += OutsideMeleeRange;
     }
-    void InsideMeleeRange()
+    void InsideMeleeRange(Collider2D foundTarget)
     {
+        target = foundTarget.GetComponent<Entity>();
         state = EnemyState.Attack;
         StopAgent();
     }
+    void OutsideMeleeRange()
+    {
+        state = EnemyState.Chase;
+        ContinueAgent();
+    }
     protected override void AttackState()
     {
-        weapon.Fire(transform.position,targetInfo.target.transform.position, gameObject);
+        weapon.Fire(transform.position,target.transform.position, gameObject);
     }
 }
