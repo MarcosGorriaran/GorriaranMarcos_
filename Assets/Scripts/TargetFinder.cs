@@ -18,7 +18,11 @@ public class TargetFinder : MonoBehaviour
     public event TargetLostAction onTargetLost;
 
 
-    void Update()
+    void FixedUpdate()
+    {
+        SearchTargets();
+    }
+    private void SearchTargets()
     {
         Collider2D[] elementsFound = Physics2D.OverlapCircleAll(transform.position, detectionRange);
         elementsFound = elementsFound.Where(IsTargatable).ToArray();
@@ -27,11 +31,11 @@ public class TargetFinder : MonoBehaviour
 
             if (elementsFound.Count() > 0 && !targetFound)
             {
-                Debug.Log(gameObject.name+ " \"TargetFound\"");
+                Debug.Log(gameObject.name + " \"TargetFound\"");
                 onTargetedFound.Invoke(SelectHighestThreat(elementsFound));
                 targetFound = true;
             }
-            else if(elementsFound.Count() <= 0 && targetFound)
+            else if (elementsFound.Count() <= 0 && targetFound)
             {
                 Debug.Log(gameObject.name + " \"TargetLost\"");
                 onTargetLost.Invoke();
@@ -42,7 +46,6 @@ public class TargetFinder : MonoBehaviour
         {
 
         }
-        
     }
     private bool IsTargatable(Collider2D element)
     {

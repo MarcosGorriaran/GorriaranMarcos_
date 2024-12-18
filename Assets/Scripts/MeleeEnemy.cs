@@ -17,11 +17,13 @@ public class MeleeEnemy : MoveEnemy
     {
         target = foundTarget.GetComponent<Entity>();
         state = EnemyState.Attack;
+        targetFinder.enabled = false;
         StopAgent();
     }
     void OutsideMeleeRange()
     {
         state = EnemyState.Chase;
+        targetFinder.enabled=true;
         ContinueAgent();
     }
     protected override void AttackState()

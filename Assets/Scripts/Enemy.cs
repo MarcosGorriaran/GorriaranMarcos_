@@ -16,15 +16,15 @@ public abstract class Enemy : Entity
     protected delegate void StateAction();
     protected Dictionary<EnemyState, StateAction> enemyStates;
     [SerializeField]
-    public TargetFinder targetInfo;
+    public TargetFinder targetFinder;
     
     protected override void Awake()
     {
         enemyStates = new Dictionary<EnemyState, StateAction>();
         enemyStates.Add(EnemyState.Idle,IdleState);
         enemyStates.Add(EnemyState.Attack,AttackState);
-        targetInfo.onTargetedFound += OnTargetFound;
-        targetInfo.onTargetLost += OnTargetLost;
+        targetFinder.onTargetedFound += OnTargetFound;
+        targetFinder.onTargetLost += OnTargetLost;
         base.Awake();
     }
     protected virtual void Update()

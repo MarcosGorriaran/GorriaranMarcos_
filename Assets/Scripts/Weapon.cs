@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
         firedBullet.transform.position = source+(direction*muzzleOffset);
         float angle = Mathf.Atan2(direction.y, direction.x);
         firedBullet.transform.rotation = Quaternion.Euler(0,0,angle*180f/Mathf.PI-90f);
-        firedBullet.SetDirection(new Vector2(target.x + GetRandomSpread(), target.y + GetRandomSpread()).normalized);
+        firedBullet.SetDirection(direction);
         firedBullet.SetOwner(owner);
     }
 }

@@ -38,6 +38,7 @@ public abstract class MoveEnemy : Enemy, IMove
     protected override void OnTargetLost()
     {
         state = EnemyState.Idle;
+        target = null;
     }
     protected void StopAgent()
     {
