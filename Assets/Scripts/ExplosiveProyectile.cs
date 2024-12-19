@@ -19,7 +19,7 @@ public class ExplosiveProyectile : Proyectile
         {
             if(explosionHarmsOwner || collision.gameObject != GetOwner())
             {
-                HPManager entityhp = GetComponent<HPManager>();
+                HPManager entityhp = collision.GetComponent<HPManager>();
                 entityhp.Hurt(explosionDamage);
                 Rigidbody2D entityPhysics = GetComponent<Rigidbody2D>();
                 entityPhysics.AddForce((transform.position - collision.transform.position).normalized * explosionForce);
