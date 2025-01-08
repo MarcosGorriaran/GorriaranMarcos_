@@ -45,8 +45,9 @@ public class Weapon : MonoBehaviour
     }
     private void SpawnBullet(Proyectile firedBullet, Vector2 source, Vector2 target, GameObject owner)
     {
+        Vector2 spread = new Vector2(GetRandomSpread(), GetRandomSpread());
+        Vector2 direction = ((target - source).normalized+spread).normalized;
         firedBullet.gameObject.SetActive(true);
-        Vector2 direction = (target - source).normalized;
         firedBullet.transform.position = source+(direction*muzzleOffset);
         float angle = Mathf.Atan2(direction.y, direction.x);
         firedBullet.transform.rotation = Quaternion.Euler(0,0,angle*180f/Mathf.PI-90f);
