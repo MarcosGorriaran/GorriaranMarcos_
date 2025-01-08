@@ -42,12 +42,13 @@ public class Proyectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != owner)
+        if (collision.gameObject != owner && !collision.TryGetComponent<Proyectile>(out _))
         {
             if (collision.TryGetComponent(out Entity hitTarget))
             {
                 hitTarget.GetComponent<HPManager>().Hurt(damage);
             }
+            
             gameObject.SetActive(false);
         }
         

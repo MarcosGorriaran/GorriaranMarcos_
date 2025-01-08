@@ -1,41 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : Entity, PlayerController.IPlayerActions
+[RequireComponent(typeof(Rigidbody))]
+public class Player : Entity, PlayerController.IAvatarActions, IMove
 {
+    [SerializeField]
+    CrosshairTopDown crosshair;
     PlayerController inputController;
+    private Rigidbody2D physicBody;
+    [SerializeField]
+    float speed;
+
     protected override void Awake()
     {
         base.Awake();
         inputController = new PlayerController();
-        inputController.Player.SetCallbacks(this);
+        inputController.Avatar.SetCallbacks(this);
+        physicBody = GetComponent<Rigidbody2D>();
+        crosshair.onFire += OnFire;
     }
-    public void OnAiming(InputAction.CallbackContext context)
+    void OnEnable()
     {
-        Debug.Log(context);
+        inputController.Enable();
+    }
+    void OnDisable()
+    {
+        inputController.Disable();
+    }
+    public void Move(Vector2 target)
+    {
+        physicBody.velocity = target.normalized * speed;
+    }
+    public void OnFire(Vector2 targetPos)
+    {
+        weapon.Fire(transform.position, targetPos, gameObject);
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        Move(context.ReadValue<Vector2>());
     }
 
-    public void OnShooting(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

@@ -2,31 +2,13 @@
     "name": "PlayerController",
     "maps": [
         {
-            "name": "Player",
+            "name": "Avatar",
             "id": "26748ffa-8933-4ed5-a362-aeedfbd5c623",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Value",
                     "id": "0339ad4c-98bd-4542-ae0c-deb239bc841e",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Shooting",
-                    "type": "Button",
-                    "id": "c9a15d70-b1d9-4d0c-9828-e199698c9083",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Aiming",
-                    "type": "Value",
-                    "id": "1d0b677f-cbb9-474d-b1bf-cb157389808c",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -88,26 +70,32 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
+                }
+            ]
+        },
+        {
+            "name": "Shooting",
+            "id": "13b320f4-f550-4f44-948a-0d0c4330e999",
+            "actions": [
+                {
+                    "name": "Shooting",
+                    "type": "Button",
+                    "id": "d3d1bf37-0824-467c-8752-461c8818636b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "0612ad8b-61d7-4fbf-8c8c-32711b456621",
+                    "id": "6fb53adf-70e1-4927-8a60-32a6ea32db45",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Shooting",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d8ab4288-ac0b-47b1-9d27-618b7bd5e344",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aiming",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

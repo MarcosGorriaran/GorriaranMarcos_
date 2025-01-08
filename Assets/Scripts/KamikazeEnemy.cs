@@ -7,7 +7,7 @@ public class KamikazeEnemy : MoveEnemy
 {
     protected override void AttackState()
     {
-        weapon.Fire(transform.position, target.transform.position,gameObject);
+        weapon.Fire(transform.position, transform.position,gameObject);
         lifeManager.Hurt(Convert.ToUInt32(lifeManager.GetHp()));
     }
     protected override void OnDeath()

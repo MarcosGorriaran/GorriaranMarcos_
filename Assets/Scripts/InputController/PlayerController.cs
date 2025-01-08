@@ -24,31 +24,13 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     ""name"": ""PlayerController"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Avatar"",
             ""id"": ""26748ffa-8933-4ed5-a362-aeedfbd5c623"",
             ""actions"": [
                 {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""0339ad4c-98bd-4542-ae0c-deb239bc841e"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Shooting"",
-                    ""type"": ""Button"",
-                    ""id"": ""c9a15d70-b1d9-4d0c-9828-e199698c9083"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Aiming"",
-                    ""type"": ""Value"",
-                    ""id"": ""1d0b677f-cbb9-474d-b1bf-cb157389808c"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -110,26 +92,32 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""Shooting"",
+            ""id"": ""13b320f4-f550-4f44-948a-0d0c4330e999"",
+            ""actions"": [
+                {
+                    ""name"": ""Shooting"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3d1bf37-0824-467c-8752-461c8818636b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""0612ad8b-61d7-4fbf-8c8c-32711b456621"",
+                    ""id"": ""6fb53adf-70e1-4927-8a60-32a6ea32db45"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shooting"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d8ab4288-ac0b-47b1-9d27-618b7bd5e344"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aiming"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -138,11 +126,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Shooting = m_Player.FindAction("Shooting", throwIfNotFound: true);
-        m_Player_Aiming = m_Player.FindAction("Aiming", throwIfNotFound: true);
+        // Avatar
+        m_Avatar = asset.FindActionMap("Avatar", throwIfNotFound: true);
+        m_Avatar_Movement = m_Avatar.FindAction("Movement", throwIfNotFound: true);
+        // Shooting
+        m_Shooting = asset.FindActionMap("Shooting", throwIfNotFound: true);
+        m_Shooting_Shooting = m_Shooting.FindAction("Shooting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -201,71 +190,103 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Shooting;
-    private readonly InputAction m_Player_Aiming;
-    public struct PlayerActions
+    // Avatar
+    private readonly InputActionMap m_Avatar;
+    private List<IAvatarActions> m_AvatarActionsCallbackInterfaces = new List<IAvatarActions>();
+    private readonly InputAction m_Avatar_Movement;
+    public struct AvatarActions
     {
         private @PlayerController m_Wrapper;
-        public PlayerActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Shooting => m_Wrapper.m_Player_Shooting;
-        public InputAction @Aiming => m_Wrapper.m_Player_Aiming;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public AvatarActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Avatar_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_Avatar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(AvatarActions set) { return set.Get(); }
+        public void AddCallbacks(IAvatarActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_AvatarActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AvatarActionsCallbackInterfaces.Add(instance);
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Shooting.started += instance.OnShooting;
-            @Shooting.performed += instance.OnShooting;
-            @Shooting.canceled += instance.OnShooting;
-            @Aiming.started += instance.OnAiming;
-            @Aiming.performed += instance.OnAiming;
-            @Aiming.canceled += instance.OnAiming;
         }
 
-        private void UnregisterCallbacks(IPlayerActions instance)
+        private void UnregisterCallbacks(IAvatarActions instance)
         {
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Shooting.started -= instance.OnShooting;
-            @Shooting.performed -= instance.OnShooting;
-            @Shooting.canceled -= instance.OnShooting;
-            @Aiming.started -= instance.OnAiming;
-            @Aiming.performed -= instance.OnAiming;
-            @Aiming.canceled -= instance.OnAiming;
         }
 
-        public void RemoveCallbacks(IPlayerActions instance)
+        public void RemoveCallbacks(IAvatarActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_AvatarActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerActions instance)
+        public void SetCallbacks(IAvatarActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_AvatarActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_AvatarActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
-    public interface IPlayerActions
+    public AvatarActions @Avatar => new AvatarActions(this);
+
+    // Shooting
+    private readonly InputActionMap m_Shooting;
+    private List<IShootingActions> m_ShootingActionsCallbackInterfaces = new List<IShootingActions>();
+    private readonly InputAction m_Shooting_Shooting;
+    public struct ShootingActions
+    {
+        private @PlayerController m_Wrapper;
+        public ShootingActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Shooting => m_Wrapper.m_Shooting_Shooting;
+        public InputActionMap Get() { return m_Wrapper.m_Shooting; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ShootingActions set) { return set.Get(); }
+        public void AddCallbacks(IShootingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ShootingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ShootingActionsCallbackInterfaces.Add(instance);
+            @Shooting.started += instance.OnShooting;
+            @Shooting.performed += instance.OnShooting;
+            @Shooting.canceled += instance.OnShooting;
+        }
+
+        private void UnregisterCallbacks(IShootingActions instance)
+        {
+            @Shooting.started -= instance.OnShooting;
+            @Shooting.performed -= instance.OnShooting;
+            @Shooting.canceled -= instance.OnShooting;
+        }
+
+        public void RemoveCallbacks(IShootingActions instance)
+        {
+            if (m_Wrapper.m_ShootingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IShootingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ShootingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ShootingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ShootingActions @Shooting => new ShootingActions(this);
+    public interface IAvatarActions
     {
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface IShootingActions
+    {
         void OnShooting(InputAction.CallbackContext context);
-        void OnAiming(InputAction.CallbackContext context);
     }
 }
