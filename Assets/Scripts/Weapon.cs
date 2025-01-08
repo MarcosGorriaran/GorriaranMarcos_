@@ -11,17 +11,28 @@ public class Weapon : MonoBehaviour
     public float roundPerSeconds;
     public float muzzleOffset;
     private Coroutine cooldown;
+    protected Coroutine Cooldown 
+    { 
+        get
+        {
+            return cooldown;
+        }
+        private set 
+        {
+            cooldown = value;
+        } 
+    }
 
-    private IEnumerator Cooldown()
+    private IEnumerator StartCooldown()
     {
         yield return new WaitForSeconds(roundPerSeconds);
         cooldown = null;
     }
-    public bool Fire(Vector2 source, Vector2 target, GameObject owner)
+    public virtual bool Fire(Vector2 source, Vector2 target, GameObject owner)
     {
         if(cooldown == null)
         {
-            cooldown = StartCoroutine(Cooldown());
+            cooldown = StartCoroutine(StartCooldown());
             List<Proyectile> availableProyectiles = pool.Where(obj => !obj.gameObject.activeSelf).ToList();
             if (availableProyectiles.Count > 0)
             {
