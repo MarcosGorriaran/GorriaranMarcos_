@@ -9,6 +9,7 @@ public class HPManager : MonoBehaviour
     public delegate void OnAction();
     public event OnAction onDeath;
     public event OnAction onRevive;
+    public event OnAction onHPChange;
     // Start is called before the first frame update
 
     private void Awake()
@@ -20,17 +21,21 @@ public class HPManager : MonoBehaviour
         if (!IsDead())
         {
             hp -= Convert.ToInt32(damage);
+            onHPChange?.Invoke();
             if (IsDead())
             {
-                onDeath.Invoke();
+                onDeath?.Invoke();
             }
+
         }
     }
     public void Revive()
     {
         hp = maxHp;
-        onRevive.Invoke();
+        onHPChange?.Invoke();
+        onRevive?.Invoke();
     }
     public bool IsDead() { return hp <= 0; }
     public int GetHp() { return hp; }
+    public int GetMaxHp() { return maxHp; }
 }

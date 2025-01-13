@@ -39,6 +39,7 @@ public class Player : Entity, PlayerController.IAvatarActions, IMove
     public void OnMovement(InputAction.CallbackContext context)
     {
         Move(context.ReadValue<Vector2>());
+        SetAnimationDirection(context.ReadValue<Vector2>().x,context.ReadValue<Vector2>().y);
     }
 
     

@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(HPManager))]
 public abstract class Entity : MonoBehaviour, IAttack, ITargetable
 {
+    const string xParameterName = "MovementX";
+    const string yParameterName = "MovementY";
+    protected Animator animator;
     protected HPManager lifeManager;
     [SerializeField]
     protected Weapon weapon;
@@ -24,6 +27,7 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     protected virtual void Awake()
     {
         lifeManager = GetComponent<HPManager>();
+        animator = GetComponent<Animator>();
         lifeManager.onDeath += OnDeath;
         lifeManager.onRevive += OnRevive;
     }
@@ -38,5 +42,10 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     protected virtual void OnRevive()
     {
 
+    }
+    protected void SetAnimationDirection(float xCord, float yCord)
+    {
+        animator.SetFloat(xParameterName,xCord);
+        animator.SetFloat(yParameterName,yCord);
     }
 }
