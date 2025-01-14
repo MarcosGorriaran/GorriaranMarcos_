@@ -27,7 +27,7 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     protected virtual void Awake()
     {
         lifeManager = GetComponent<HPManager>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         lifeManager.onDeath += OnDeath;
         lifeManager.onRevive += OnRevive;
     }

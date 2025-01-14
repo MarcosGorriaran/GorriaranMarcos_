@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TurretEnemy : Enemy
@@ -7,6 +8,11 @@ public class TurretEnemy : Enemy
     protected override void AttackState()
     {
         weapon.Fire(transform.position, target.transform.position, gameObject);
+
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x);
+        transform.localRotation = Quaternion.Euler(0, 0, angle * 180f / Mathf.PI - 90f);
+        
     }
 
     protected override void IdleState()
