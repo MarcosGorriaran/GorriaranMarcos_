@@ -6,6 +6,14 @@ public class RotateFollowParentAndTarget : MonoBehaviour
 {
     public Transform target;
     public float parentPositionOffset;
+
+    private void Awake()
+    {
+        if (target == null)
+        {
+            target = Player.instance.transform;
+        }
+    }
     private void Update()
     {
         Vector2 dir = GetDir();

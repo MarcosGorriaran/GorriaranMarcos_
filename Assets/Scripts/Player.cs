@@ -4,9 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : Entity, PlayerController.IAvatarActions, IMove
 {
+    public static Player instance { private set; get; }
     const string MovingParameterName = "Walking";
-    const string AttackDirXName = "AttackDirX";
-    const string AttackDirYName = "AttackDirY";
     [SerializeField]
     CrosshairTopDown crosshair;
     PlayerController inputController;
@@ -16,11 +15,20 @@ public class Player : Entity, PlayerController.IAvatarActions, IMove
 
     protected override void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         base.Awake();
         inputController = new PlayerController();
         inputController.Avatar.SetCallbacks(this);
         physicBody = GetComponent<Rigidbody2D>();
         crosshair.onFire += OnFire;
+       
     }
     void OnEnable()
     {

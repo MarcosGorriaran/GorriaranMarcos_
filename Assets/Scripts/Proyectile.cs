@@ -4,8 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
+
 public class Proyectile : MonoBehaviour
 {
     const string LengthName = "length";
@@ -21,10 +20,6 @@ public class Proyectile : MonoBehaviour
     bool destroyOnContact = true;
     [SerializeField]
     bool keepEffects;
-    [SerializeField]
-    GenericPool explosionPool;
-    [SerializeField]
-    GenericDisabler disablerMethod;
     ParentConstraint constraint;
     Rigidbody2D body;
 
@@ -42,16 +37,7 @@ public class Proyectile : MonoBehaviour
         {
             animationControllers.FirstOrDefault().SetFloat(LengthName, 1 / lifeTime);
         }
-        
-    }
-    protected virtual void OnDisable()
-    {
-        if (explosionPool != null && disablerMethod != null)
-        {
-            Animator animation = explosionPool.InstantiateObject(transform.position).GetComponent<Animator>();
-            animation.StartPlayback();
-            disablerMethod.DisableObjectOn(new WaitUntil(() => !animation.GetCurrentAnimatorStateInfo(0).IsName("YourAnimationName")), animation.gameObject);
-        }
+        ActivateObject();
         
     }
     public void SetDirection(Vector2 direction)
@@ -107,12 +93,16 @@ public class Proyectile : MonoBehaviour
     {
         if (keepEffects)
         {
-            GetComponentInChildren<Collider>().enabled=false;
+            GetComponentInChildren<Collider2D>().enabled=false;
         }
         else
         {
             gameObject.SetActive(false);
         }
+    }
+    private void ActivateObject()
+    {
+        GetComponentInChildren<Collider2D>().enabled = true;
     }
     protected GameObject GetOwner()
     {

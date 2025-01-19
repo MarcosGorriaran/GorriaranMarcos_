@@ -175,7 +175,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   lifeTime: 0.5
-  damage: 1
+  damage: 20
+  destroyOnContact: 1
+  keepEffects: 0
 --- !u!95 &5412858794912407010
 Animator:
   serializedVersion: 5

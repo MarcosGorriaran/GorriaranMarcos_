@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   lifeTime: 10
-  damage: 1
+  damage: 15
   destroyOnContact: 1
   keepEffects: 0
 --- !u!95 &2988868780056459365

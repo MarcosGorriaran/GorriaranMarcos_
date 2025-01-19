@@ -25,7 +25,14 @@ public class Weapon : MonoBehaviour
             cooldown = value;
         } 
     }
-
+    public void GetWeapon(WeaponSO weapon)
+    {
+        spread = weapon.spread;
+        ammo = weapon.ammo;
+        roundPerSeconds = weapon.roundPerSeconds;
+        pool.ForEach(obj => Destroy(obj.gameObject));
+        pool.Clear();
+    }
     private IEnumerator StartCooldown()
     {
         yield return new WaitForSeconds(roundPerSeconds);

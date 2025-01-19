@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(HPManager))]
 public abstract class Entity : MonoBehaviour, IAttack, ITargetable
@@ -12,6 +13,10 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     protected Weapon weapon;
     [SerializeField]
     private Group groupMember;
+    [SerializeField]
+    private float damageInfoDuration = 1f;
+    private Color spriteDefColor;
+    private Coroutine damageInfo;
     public Group GroupMember 
     {
         get { return groupMember; }
@@ -30,6 +35,27 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
         animator = GetComponentInChildren<Animator>();
         lifeManager.onDeath += OnDeath;
         lifeManager.onRevive += OnRevive;
+        lifeManager.onHPChange += OnHpChange;
+        spriteDefColor = GetComponentInChildren<SpriteRenderer>().color;
+    }
+    private void OnHpChange(int hpValue)
+    {
+        if (hpValue < 0)
+        {
+            if (damageInfo != null)
+            {
+                StopCoroutine(damageInfo);
+            }
+            damageInfo = StartCoroutine(HPHarmedInfo());
+        }
+    }
+    private IEnumerator HPHarmedInfo()
+    {
+
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(damageInfoDuration);
+        sprite.color = spriteDefColor;
     }
     public virtual void Attack(Vector2 direction)
     {
