@@ -11,9 +11,9 @@ public class ExplosiveProyectile : Proyectile
     float explosionForce;
     [SerializeField]
     uint explosionDamage;
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        
+        base.OnDisable();
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach(Collider2D collision in collisions.Where(obj=>obj.TryGetComponent<Entity>(out _)))
         {

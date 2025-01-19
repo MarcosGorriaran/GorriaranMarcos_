@@ -121,6 +121,8 @@ MonoBehaviour:
   speed: 0
   lifeTime: 0.1
   damage: 2
+  destroyOnContact: 1
+  keepEffects: 0
   explosionHarmsOwner: 0
   explosionRadius: 1.2
   explosionForce: 2
