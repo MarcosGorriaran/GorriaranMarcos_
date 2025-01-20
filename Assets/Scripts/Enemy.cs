@@ -11,6 +11,8 @@ public enum EnemyState
 }
 public abstract class Enemy : Entity
 {
+    [SerializeField]
+    uint scorePoints;
     protected Entity target;
     public EnemyState state;
     protected delegate void StateAction();
@@ -34,6 +36,11 @@ public abstract class Enemy : Entity
     protected virtual void OnTargetFound(Collider2D foundTarget)
     {
         target = foundTarget.GetComponent<Entity>();
+    }
+    protected override void OnDeath()
+    {
+        Player.instance.GivePoints(scorePoints);
+        base.OnDeath();
     }
     protected abstract void OnTargetLost();
     protected abstract void IdleState();

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f72dea5bca881fa42b761e356c03141c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -341,9 +341,9 @@ MonoBehaviour:
   weapon: {fileID: 2793917704367619161}
   groupMember: 1
   damageInfoDuration: 1
+  scorePoints: 250
   state: 0
   targetFinder: {fileID: 2915303215860841120}
-  rotationRange: 0
 --- !u!114 &2865575971066886958
 MonoBehaviour:
   m_ObjectHideFlags: 0

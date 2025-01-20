@@ -314,6 +314,7 @@ MonoBehaviour:
   weapon: {fileID: 4226693116569445705}
   groupMember: 1
   damageInfoDuration: 1
+  scorePoints: 200
   state: 0
   targetFinder: {fileID: 6466255002597292891}
 --- !u!114 &4226693116569445705

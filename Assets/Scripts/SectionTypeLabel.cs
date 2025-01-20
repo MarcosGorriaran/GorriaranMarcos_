@@ -5,4 +5,5 @@ using UnityEngine;
 public class SectionTypeLabel : MonoBehaviour
 {
     public SectionType sectionLabel;
+    public Transform playerSpawnLocation;
 }

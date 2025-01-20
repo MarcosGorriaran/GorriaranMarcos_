@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fe144b76e9651478fa89c929f18f67, type: 3}
+  m_Name: BigAssGun
+  m_EditorClassIdentifier: 
+  weaponModel: {fileID: -7095037411678450338, guid: eeac123894a68534590c3197728fced1, type: 3}
+  ammo: {fileID: 4029875070815694041, guid: 4d176f6ee69beeb4ea2698e630abe34c, type: 3}
+  description: Someone in blue gived us the great idea to fit the biggest bullet
+    posible in here
+  spread: 0
+  roundPerSeconds: 2
+  cost: 4500
+  trackProyectile: 0

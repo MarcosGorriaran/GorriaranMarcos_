@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class TurretEnemy : Enemy
 {
-    [SerializeField]
-    float rotationRange;
     protected override void AttackState()
     {
         weapon.Fire(transform.position, target.transform.position, gameObject);

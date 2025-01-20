@@ -30,6 +30,24 @@ public class HPManager : MonoBehaviour
 
         }
     }
+    public void Heal(uint heal)
+    {
+        if (!IsDead())
+        {
+            int healAmount = Convert.ToInt32(heal);
+            int estimatedHealResult = healAmount + hp;
+            if (healAmount+hp > maxHp)
+            {
+                hp = maxHp;
+                onHPChange?.Invoke(estimatedHealResult-maxHp);
+            }
+            else
+            {
+                hp = estimatedHealResult;
+                onHPChange?.Invoke(estimatedHealResult);
+            }
+        }    
+    }
     public void Revive()
     {
         onHPChange?.Invoke(maxHp-hp);

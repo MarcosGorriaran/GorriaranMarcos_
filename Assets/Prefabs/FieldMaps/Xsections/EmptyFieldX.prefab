@@ -3294,17 +3294,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7150390777205845447}
     m_Modifications:
+    - target: {fileID: 1166390932159251203, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
+      propertyPath: scorePoints
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2793917704367619161, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
+      propertyPath: ammo
+      value: 
+      objectReference: {fileID: 4029875070815694041, guid: 4d176f6ee69beeb4ea2698e630abe34c, type: 3}
     - target: {fileID: 2793917704367619161, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
       propertyPath: spread
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2793917704367619161, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
       propertyPath: roundPerSeconds
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2865575971066886958, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
       propertyPath: maxHp
-      value: 150
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2915303215860841120, guid: fcb6a3c0c0c7d5a47be6249cf2ddd2d3, type: 3}
       propertyPath: detectionRange

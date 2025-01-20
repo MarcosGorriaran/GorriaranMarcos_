@@ -154,10 +154,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeMapOptions:
+  - {fileID: 8020054277530315162, guid: 1998f7e22b9aafd46883066312e4b7fc, type: 3}
   - {fileID: 8020054277530315162, guid: 2a0847f4cdf061a43967a660e995916d, type: 3}
   generationOptions:
   - {fileID: 11400000, guid: 58448c237e901c040b3f131ad4f66c83, type: 2}
   navMeshSurface: {fileID: 1917907680}
+  playerPrefab: {fileID: 9166993248101912749, guid: 520e2f5efcddf104ebd9c131d1839737, type: 3}
 --- !u!4 &1917907678
 Transform:
   m_ObjectHideFlags: 0

@@ -31,7 +31,16 @@ public class Weapon : MonoBehaviour
         ammo = weapon.ammo;
         roundPerSeconds = weapon.roundPerSeconds;
         pool.ForEach(obj => Destroy(obj.gameObject));
-        pool.Clear();
+        pool = new List<Proyectile>();
+        if (weapon.trackProyectile)
+        {
+            GetNewBulletTrackObject();
+        }
+    }
+    public void GetNewBulletTrackObject()
+    {
+        if(GetComponentsInChildren<RotateFollowParentAndTarget>().Count()>0)
+            bulletTrackTarget = GetComponentInChildren<RotateFollowParentAndTarget>().transform;
     }
     private IEnumerator StartCooldown()
     {

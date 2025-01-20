@@ -305,6 +305,7 @@ MonoBehaviour:
   weapon: {fileID: 3364966967490467513}
   groupMember: 1
   damageInfoDuration: 1
+  scorePoints: 100
   state: 0
   targetFinder: {fileID: 8034592380001858452}
   meleeRange: {fileID: 2059688506785271530}

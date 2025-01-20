@@ -13,6 +13,8 @@ public class PrecuduralNodeManager : MonoBehaviour
     ProceduralMapItemsSO[] generationOptions;
     [SerializeField]
     NavMeshSurface navMeshSurface;
+    [SerializeField]
+    Player playerPrefab;
 
     private void Awake()
     {
@@ -34,9 +36,11 @@ public class PrecuduralNodeManager : MonoBehaviour
         {
             sectionList.Add(type, ProceduralNode.nodeList.Where(node => node.type == type).ToArray());
         }
+
         ProceduralNode startingPoint = sectionList.Where(dict => dict.Key == SectionType.PlayerStart).FirstOrDefault().Value.FirstOrDefault();
         FillSection(startingPoint, selectedOption.sectionObjects.Where(obj => obj.sectionLabel == SectionType.PlayerStart).ToArray());
         sectionList.Remove(SectionType.PlayerStart);
+        
         foreach (KeyValuePair<SectionType, ProceduralNode[]> nodeList in sectionList)
         {
             FillSection(nodeList.Value, selectedOption.sectionObjects.Where(obj => obj.sectionLabel == nodeList.Key).ToArray());
@@ -44,19 +48,29 @@ public class PrecuduralNodeManager : MonoBehaviour
 
         navMeshSurface.BuildNavMesh();
     }
-    void FillSection<T>(ProceduralNode[] nodes, T[] fillOption) where T : MonoBehaviour
+    void InstantiatePlayer(Vector2 location)
+    {
+        Player player = Player.instance == null ? Instantiate(playerPrefab) : Player.instance;
+        player.transform.position = location;
+    }
+    void FillSection(ProceduralNode[] nodes, SectionTypeLabel[] fillOption)
     {
         foreach(ProceduralNode node in nodes)
         {
             FillSection(node, fillOption);
         }
     }
-    void FillSection<T>(ProceduralNode node, T[] fillOption) where T: MonoBehaviour
+    void FillSection(ProceduralNode node, SectionTypeLabel[] fillOption)
     {
         try
         {
-            GameObject instantiatedElement = Instantiate(fillOption[UnityEngine.Random.Range(0, fillOption.Length)].gameObject);
+            SectionTypeLabel label = fillOption[UnityEngine.Random.Range(0, fillOption.Length)];
+            GameObject instantiatedElement = Instantiate(label.gameObject);
             instantiatedElement.transform.position = node.transform.position;
+            if(label.playerSpawnLocation != null)
+            {
+                InstantiatePlayer(instantiatedElement.GetComponent<SectionTypeLabel>().playerSpawnLocation.position);
+            }
         }
         catch (IndexOutOfRangeException)
         {

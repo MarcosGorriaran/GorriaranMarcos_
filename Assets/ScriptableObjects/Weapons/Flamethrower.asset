@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fe144b76e9651478fa89c929f18f67, type: 3}
+  m_Name: Flamethrower
+  m_EditorClassIdentifier: 
+  weaponModel: {fileID: -4359224551511455345, guid: eeac123894a68534590c3197728fced1, type: 3}
+  ammo: {fileID: 2782168044581990482, guid: d66a439994783f345af4156e95d7248e, type: 3}
+  description: Burn anyone foolish enough to come to you
+  spread: 0
+  roundPerSeconds: 0.3
+  cost: 3000
+  trackProyectile: 1

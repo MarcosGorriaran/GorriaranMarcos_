@@ -10,7 +10,7 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     protected Animator animator;
     protected HPManager lifeManager;
     [SerializeField]
-    protected Weapon weapon;
+    public Weapon weapon;
     [SerializeField]
     private Group groupMember;
     [SerializeField]

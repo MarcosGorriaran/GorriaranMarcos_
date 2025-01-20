@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7860257184086500702}
   - component: {fileID: 2342044248603847343}
   - component: {fileID: 1937867264184020181}
-  - component: {fileID: 5425064885618649617}
   - component: {fileID: 1253526151246696665}
+  - component: {fileID: 8872375984431382640}
   m_Layer: 0
   m_Name: BlockWalls
   m_TagString: Untagged
@@ -292,22 +292,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5425064885618649617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737664443417678641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!19719996 &1253526151246696665
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -344,6 +328,22 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!208 &8872375984431382640
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2737664443417678641}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 9, y: 9.5, z: 0.00001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -3.0000002, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &2875980130790686846
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 271875042, guid: c4cfd95115b093046804145ba6fefc47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -556,6 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sectionLabel: 10
+  playerSpawnLocation: {fileID: 0}
 --- !u!1 &4594115361186921247
 GameObject:
   m_ObjectHideFlags: 0
