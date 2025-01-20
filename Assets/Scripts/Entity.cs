@@ -13,6 +13,8 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
     public Weapon weapon;
     [SerializeField]
     private Group groupMember;
+    [SerializeField] 
+    private AudioSource hitSound;
     [SerializeField]
     private float damageInfoDuration = 1f;
     private Color spriteDefColor;
@@ -46,6 +48,7 @@ public abstract class Entity : MonoBehaviour, IAttack, ITargetable
             {
                 StopCoroutine(damageInfo);
             }
+            hitSound.Play();
             damageInfo = StartCoroutine(HPHarmedInfo());
         }
     }

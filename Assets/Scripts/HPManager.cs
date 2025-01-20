@@ -50,8 +50,9 @@ public class HPManager : MonoBehaviour
     }
     public void Revive()
     {
-        onHPChange?.Invoke(maxHp-hp);
+        
         hp = maxHp;
+        onHPChange?.Invoke(maxHp - hp);
         onRevive?.Invoke();
     }
     public bool IsDead() { return hp <= 0; }

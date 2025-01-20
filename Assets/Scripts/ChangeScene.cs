@@ -11,6 +11,7 @@ public class ChangeScene : MonoBehaviour
     public void LoadAndDestroyAllObjects(string sceneName)
     {
         Destroy(Player.instance.gameObject);
+        Destroy(MusicController.instance.gameObject);
         SceneManager.LoadScene(sceneName);
         
     }

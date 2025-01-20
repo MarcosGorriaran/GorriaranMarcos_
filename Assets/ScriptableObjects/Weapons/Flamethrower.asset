@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponModel: {fileID: -4359224551511455345, guid: eeac123894a68534590c3197728fced1, type: 3}
   ammo: {fileID: 2782168044581990482, guid: d66a439994783f345af4156e95d7248e, type: 3}
+  weaponSound: {fileID: 8300000, guid: 921f9c44d7c1300408ec9bc77e02180a, type: 3}
   description: Burn anyone foolish enough to come to you
   spread: 0
   roundPerSeconds: 0.3

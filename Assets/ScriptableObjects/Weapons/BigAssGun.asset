@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponModel: {fileID: -7095037411678450338, guid: eeac123894a68534590c3197728fced1, type: 3}
   ammo: {fileID: 4029875070815694041, guid: 4d176f6ee69beeb4ea2698e630abe34c, type: 3}
+  weaponSound: {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
   description: Someone in blue gived us the great idea to fit the biggest bullet
     posible in here
   spread: 0

@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
     public float roundPerSeconds;
     public float muzzleOffset;
     public Transform bulletTrackTarget;
+    public AudioSource fireSound;
     private Coroutine cooldown;
     protected Coroutine Cooldown 
     { 
@@ -30,11 +31,19 @@ public class Weapon : MonoBehaviour
         spread = weapon.spread;
         ammo = weapon.ammo;
         roundPerSeconds = weapon.roundPerSeconds;
+        fireSound.clip = weapon.weaponSound;
         pool.ForEach(obj => Destroy(obj.gameObject));
         pool = new List<Proyectile>();
         if (weapon.trackProyectile)
         {
             GetNewBulletTrackObject();
+        }
+    }
+    private void OnDestroy()
+    {
+        foreach (Proyectile obj in pool)
+        {
+            Destroy(obj.gameObject);
         }
     }
     public void GetNewBulletTrackObject()
@@ -54,6 +63,7 @@ public class Weapon : MonoBehaviour
             cooldown = StartCoroutine(StartCooldown());
             
             SpawnBullet(InstantiateProyectile(owner), source, target, owner);
+            fireSound.Play();
             return true;
         }
         return false;
@@ -72,6 +82,7 @@ public class Weapon : MonoBehaviour
         {
             firedBullet = Instantiate(ammo);
             firedBullet.gameObject.SetActive(false);
+            DontDestroyOnLoad(firedBullet);
             pool.Add(firedBullet);
 
         }
