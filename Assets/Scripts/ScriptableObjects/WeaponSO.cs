@@ -7,6 +7,7 @@ public class WeaponSO : ScriptableObject
 {
     public Sprite weaponModel;
     public Proyectile ammo;
+    public AudioClip weaponSound;
     public string description;
     public float spread;
     public float roundPerSeconds;
