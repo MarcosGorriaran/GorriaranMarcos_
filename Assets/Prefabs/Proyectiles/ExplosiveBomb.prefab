@@ -120,8 +120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   lifeTime: 0.1
-  damage: 2
+  damage: 25
+  destroyOnContact: 1
+  keepEffects: 0
   explosionHarmsOwner: 0
   explosionRadius: 1.2
   explosionForce: 2
-  explosionDamage: 2
+  explosionDamage: 25

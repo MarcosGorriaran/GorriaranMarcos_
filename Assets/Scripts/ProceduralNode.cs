@@ -13,7 +13,8 @@ public enum SectionType
     CornerSectionES,
     CornerSectionNE,
     CornerSectionSW,
-    CornerSectionWN
+    CornerSectionWN,
+    PlayerStart
 }
 public class ProceduralNode : MonoBehaviour
 {

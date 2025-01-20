@@ -6,11 +6,20 @@ using UnityEngine.InputSystem;
 
 public class CrosshairTopDown : MonoBehaviour, PlayerController.IShootingActions
 {
+    public static CrosshairTopDown instance {  get; private set; }
     PlayerController inputActions;
     Coroutine fireHeldAction;
     public event Action<Vector2> onFire;
     void Awake()
     {
+        if (inputActions == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         inputActions = new PlayerController();
         inputActions.Shooting.SetCallbacks(this);
     }

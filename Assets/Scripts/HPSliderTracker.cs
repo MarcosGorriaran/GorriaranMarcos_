@@ -13,7 +13,7 @@ public class HPSliderTracker : MonoBehaviour
         slider.maxValue = trackedEntity.GetMaxHp();
         trackedEntity.onHPChange += UpdateSlider;
     }
-    private void UpdateSlider()
+    private void UpdateSlider(int hpValue)
     {
         slider.value = trackedEntity.GetMaxHp() - trackedEntity.GetHp();
     }

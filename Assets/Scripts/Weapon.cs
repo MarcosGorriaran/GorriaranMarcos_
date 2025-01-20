@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.GraphicsBuffer;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Weapon : MonoBehaviour
     public float spread;
     public float roundPerSeconds;
     public float muzzleOffset;
+    public Transform bulletTrackTarget;
     private Coroutine cooldown;
     protected Coroutine Cooldown 
     { 
@@ -22,7 +25,23 @@ public class Weapon : MonoBehaviour
             cooldown = value;
         } 
     }
-
+    public void GetWeapon(WeaponSO weapon)
+    {
+        spread = weapon.spread;
+        ammo = weapon.ammo;
+        roundPerSeconds = weapon.roundPerSeconds;
+        pool.ForEach(obj => Destroy(obj.gameObject));
+        pool = new List<Proyectile>();
+        if (weapon.trackProyectile)
+        {
+            GetNewBulletTrackObject();
+        }
+    }
+    public void GetNewBulletTrackObject()
+    {
+        if(GetComponentsInChildren<RotateFollowParentAndTarget>().Count()>0)
+            bulletTrackTarget = GetComponentInChildren<RotateFollowParentAndTarget>().transform;
+    }
     private IEnumerator StartCooldown()
     {
         yield return new WaitForSeconds(roundPerSeconds);
@@ -33,22 +52,30 @@ public class Weapon : MonoBehaviour
         if(cooldown == null)
         {
             cooldown = StartCoroutine(StartCooldown());
-            List<Proyectile> availableProyectiles = pool.Where(obj => !obj.gameObject.activeSelf).ToList();
-            if (availableProyectiles.Count > 0)
-            {
-                Proyectile firedBullet = availableProyectiles.First();
-                SpawnBullet(firedBullet, source, target, owner);
-            }
-            else
-            {
-                Proyectile firedBullet = Instantiate(ammo);
-                pool.Add(firedBullet);
-                SpawnBullet(firedBullet, source, target, owner);
-            }
+            
+            SpawnBullet(InstantiateProyectile(owner), source, target, owner);
             return true;
         }
         return false;
         
+    }
+    private Proyectile InstantiateProyectile(GameObject parent)
+    {
+        List<Proyectile> availableProyectiles = pool.Where(obj => !obj.gameObject.activeSelf).ToList();
+        Proyectile firedBullet;
+        if (availableProyectiles.Count > 0)
+        {
+            firedBullet = availableProyectiles.First();
+
+        }
+        else
+        {
+            firedBullet = Instantiate(ammo);
+            firedBullet.gameObject.SetActive(false);
+            pool.Add(firedBullet);
+
+        }
+        return firedBullet;
     }
     private float GetRandomSpread()
     {
@@ -58,11 +85,17 @@ public class Weapon : MonoBehaviour
     {
         Vector2 spread = new Vector2(GetRandomSpread(), GetRandomSpread());
         Vector2 direction = ((target - source).normalized+spread).normalized;
-        firedBullet.gameObject.SetActive(true);
         firedBullet.transform.position = source+(direction*muzzleOffset);
+
         float angle = Mathf.Atan2(direction.y, direction.x);
         firedBullet.transform.rotation = Quaternion.Euler(0,0,angle*180f/Mathf.PI-90f);
+
+        if (bulletTrackTarget != null)
+        {
+            firedBullet.SetTrackTarget(bulletTrackTarget);
+        }
         firedBullet.SetDirection(direction);
         firedBullet.SetOwner(owner);
+        firedBullet.gameObject.SetActive(true);
     }
 }

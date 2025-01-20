@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent))]
 public abstract class MoveEnemy : Enemy, IMove
 {
+    const string MovingParameterName = "Walking";
     NavMeshAgent agent;
     
 
@@ -20,13 +21,16 @@ public abstract class MoveEnemy : Enemy, IMove
     public void Move(Vector2 target)
     {
         agent.SetDestination(target);
+        Vector2 direction = agent.desiredVelocity.normalized;
+        SetAnimationDirection(direction.x, direction.y);
     }
     protected override void IdleState()
     {
-        
+        animator.SetBool(MovingParameterName, false);
     }
     protected void ChaseState()
     {
+        animator.SetBool(MovingParameterName, true);
         Move(target.transform.position);
     }
     
