@@ -3,4 +3,5 @@ In this game you control a cat who's only objective is to clear dungeons and use
 Try to see how far can you get.
 ## Controls
 - W A S D: Movement keys
+- Mouse: Aim weapon
 - Left click: Fire weapon
